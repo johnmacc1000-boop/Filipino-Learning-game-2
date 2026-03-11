@@ -8,16 +8,48 @@
 <body>
   <h1>Filipino Reading Game</h1>
 
-  <div id="wordContainer">
-    <strong>Word:</strong>
-    <span id="word">mahal</span>
-  </div>
+  <section id="loginArea">
+    <h2>Login / Register</h2>
+    <p>
+      Student name: <input id="studentNameInput" placeholder="Type your name" />
+      <button id="studentLoginBtn">Start as Student</button>
+    </p>
+    <p>
+      <hr />
+    </p>
+    <p>
+      Teacher password: <input id="teacherPasswordInput" type="password" placeholder="teacher123" />
+      <button id="teacherLoginBtn">Teacher Login</button>
+    </p>
+    <div id="loginHint">Use teacher password <strong>teacher123</strong> (demo).</div>
+  </section>
 
-  <button id="startBtn">Start Speech Check</button>
+  <section id="studentArea" style="display: none;">
+    <h2 id="studentTitle"></h2>
+    <div id="wordContainer">
+      <strong>Word:</strong>
+      <span id="word">mahal</span>
+    </div>
 
-  <div id="result" style="margin-top: 1rem;">Press button and speak.</div>
-  <div id="score">Score: 0</div>
-  <div id="badges">Badges: None</div>
+    <button id="startBtn">Start Speech Check</button>
+    <button id="resetBtn">Reset Progress</button>
+
+    <div id="result" style="margin-top: 1rem;">Press button and speak.</div>
+    <div id="score">Score: 0</div>
+    <div id="badges">Badges: None</div>
+
+    <button id="logoutBtn">Logout</button>
+  </section>
+
+  <section id="teacherArea" style="display: none;">
+    <h2>Teacher Dashboard</h2>
+    <button id="refreshLogBtn">Refresh student list</button>
+    <button id="exportCsvBtn">Export CSV</button>
+    <button id="adminLogoutBtn">Logout</button>
+
+    <div id="teacherResult"></div>
+    <table id="studentTable" border="1" style="width: 100%; margin-top: 1rem; border-collapse: collapse;"></table>
+  </section>
 
   <script src="script.js"></script>
 </body>
