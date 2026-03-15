@@ -37,24 +37,43 @@
 
   <section id="studentArea" class="card" style="display: none;">
     <h2 id="studentTitle"></h2>
-    <div id="wordContainer">
-      <strong>Word:</strong>
-      <span id="word">mahal</span>
+
+    <div id="studentHome">
+      <p>Choose your course to start practicing.</p>
+      <div class="course-list">
+        <div class="course-card">
+          <h3>Basic Reading</h3>
+          <p>Practice common Filipino words with speech recognition.</p>
+          <button id="goToPracticeBtn">Mic record</button>
+        </div>
+      </div>
     </div>
 
-    <button id="startBtn">Start Speech Check</button>
-    <button id="resetBtn">Reset Progress</button>
-    <button id="exportBtn">Export My Progress</button>
+    <div id="studentPractice" style="display: none;">
+      <div id="wordContainer">
+        <strong>Word:</strong>
+        <span id="word">mahal</span>
+      </div>
 
-    <div id="result" style="margin-top: 1rem;">Press button and speak.</div>
-    <div id="score">Score: 0</div>
-    <div class="progress" aria-label="Score progress">
-      <div class="progress__fill" id="progressFill"></div>
-      <div class="progress__text" id="progressText">0 / 100</div>
+      <button id="startBtn">Start Speech Check</button>
+      <button id="resetBtn">Reset Progress</button>
+      <button id="exportBtn">Export My Progress</button>
+
+      <div id="result" style="margin-top: 1rem;">Press button and speak.</div>
+      <div id="score">Score: 0</div>
+      <div class="progress" aria-label="Score progress">
+        <div class="progress__fill" id="progressFill"></div>
+        <div class="progress__text" id="progressText">0 / 100</div>
+      </div>
+      <div id="badges">Badges: None</div>
+
+      <div style="margin-top: 1rem; display: flex; gap: 0.5rem; flex-wrap: wrap;">
+        <button id="backToCoursesBtn" class="secondary">Back to courses</button>
+      </div>
     </div>
-    <div id="badges">Badges: None</div>
-
-    <button id="logoutBtn">Logout</button>
+    <div style="margin-top: 1rem;">
+      <button id="logoutBtn">Logout</button>
+    </div>
   </section>
 
   <section id="teacherArea" class="card" style="display: none;">

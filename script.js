@@ -63,7 +63,6 @@ function loadStudentProgress(name) {
     }
   }
   document.getElementById('studentTitle').innerText = `Student: ${currentStudent}`;
-  showWord();
   updateStatus();
 }
 
@@ -160,6 +159,32 @@ function showLogin() {
   teacherArea.style.display = 'none';
 }
 
+function showStudentHome() {
+  const home = document.getElementById('studentHome');
+  const practice = document.getElementById('studentPractice');
+  if (!home || !practice) {
+    console.warn('Student home or practice view missing.');
+    return;
+  }
+  home.style.display = 'block';
+  practice.style.display = 'none';
+  const result = document.getElementById('result');
+  if (result) result.innerText = 'Press "Mic record" to start practicing.';
+}
+
+function showStudentPractice() {
+  const home = document.getElementById('studentHome');
+  const practice = document.getElementById('studentPractice');
+  if (!home || !practice) {
+    console.warn('Student home or practice view missing.');
+    return;
+  }
+  home.style.display = 'none';
+  practice.style.display = 'block';
+  showWord();
+  updateStatus();
+}
+
 function showStudentArea() {
   const loginArea = document.getElementById('loginArea');
   const studentArea = document.getElementById('studentArea');
@@ -171,6 +196,7 @@ function showStudentArea() {
   loginArea.style.display = 'none';
   studentArea.style.display = 'block';
   teacherArea.style.display = 'none';
+  showStudentHome();
 }
 
 function showTeacherArea() {
@@ -328,6 +354,18 @@ window.addEventListener('DOMContentLoaded', () => {
       return;
     }
     startSpeech();
+  });
+
+  document.getElementById('goToPracticeBtn').addEventListener('click', () => {
+    if (!currentStudent) {
+      alert('Please log in first as a student.');
+      return;
+    }
+    showStudentPractice();
+  });
+
+  document.getElementById('backToCoursesBtn').addEventListener('click', () => {
+    showStudentHome();
   });
 
   showLogin();
