@@ -5,7 +5,6 @@ import { getFirestore, doc, setDoc, getDoc, collection, getDocs } from "https://
 const firebaseConfig = {
   apiKey: "AIzaSyAjgDNIb7Jkm5jbxS6lHdNBS_3qb9nHQWc",
   authDomain: "filipino-learning-game.firebaseapp.com",
-  databaseURL: "https://filipino-learning-game-default-rtdb.asia-southeast1.firebasedatabase.app",
   projectId: "filipino-learning-game",
   storageBucket: "filipino-learning-game.firebasestorage.app",
   messagingSenderId: "246534782161",
@@ -192,7 +191,10 @@ onAuthStateChanged(auth, async (user) => {
 });
 
 // Event wiring
+console.log('Script loaded, attaching event listeners...');
+
 document.getElementById('studentLoginBtn').addEventListener('click', async () => {
+  console.log('Student login clicked');
   const email = document.getElementById('studentEmailInput').value.trim();
   const pass = document.getElementById('studentPasswordInput').value;
   if (!email || !pass) {
