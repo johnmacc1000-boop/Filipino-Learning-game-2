@@ -225,6 +225,20 @@ function showStudentPractice() {
   updateStatus();
 }
 
+function showStudentArea() {
+  const loginArea = document.getElementById('loginArea');
+  const studentArea = document.getElementById('studentArea');
+  const teacherArea = document.getElementById('teacherArea');
+  if (!loginArea || !studentArea || !teacherArea) {
+    console.warn('Some UI sections are missing; cannot show student area.');
+    return;
+  }
+  loginArea.style.display = 'none';
+  studentArea.style.display = 'block';
+  teacherArea.style.display = 'none';
+  showStudentHome();
+}
+
 function showStudentAssessment() {
   const home = document.getElementById('studentHome');
   const assessment = document.getElementById('studentAssessment');
