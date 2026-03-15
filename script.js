@@ -1,25 +1,72 @@
-const firebaseConfig = {
-  apiKey: "AIzaSyB31bRJnV6l9tFw0S5JLeNwY_he-wF7iwc",
-  authDomain: "flg2-ace85.firebaseapp.com",
-  projectId: "flg2-ace85",
-  storageBucket: "flg2-ace85.firebasestorage.app",
-  messagingSenderId: "611839428556",
-  appId: "1:611839428556:web:1df3b570d94579c9067f69"
-};
-
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-const db = getFirestore(app);
-
 const words = ['mahal', 'ganda', 'talo', 'araw', 'gabi'];
+const TEACHER_PASSWORD = 'teacher123';
+const STUDENT_LIST_KEY = 'filipino_student_list';
 let idx = 0;
 let score = 0;
 let badges = new Set();
-let currentUser = null;
-let isTeacher = false;
+let currentStudent = null;
+
+function sanitizeId(name) {
+  return name.trim().toLowerCase().replace(/[^a-z0-9]/g, '_');
+}
+
+function getAllStudentIds() {
+  const data = localStorage.getItem(STUDENT_LIST_KEY);
+  return data ? JSON.parse(data) : [];
+}
+
+function setAllStudentIds(ids) {
+  localStorage.setItem(STUDENT_LIST_KEY, JSON.stringify(ids));
+}
+
+function getStudentKey(id) {
+  return `filipino_student_${id}`;
+}
+
+function saveStudentProgress() {
+  if (!currentStudent) return;
+  const id = sanitizeId(currentStudent);
+  const payload = {
+    name: currentStudent,
+    idx,
+    score,
+    badges: [...badges],
+    updated: new Date().toISOString(),
+  };
+  localStorage.setItem(getStudentKey(id), JSON.stringify(payload));
+
+  const ids = getAllStudentIds();
+  if (!ids.includes(id)) {
+    ids.push(id);
+    setAllStudentIds(ids);
+  }
+}
+
+function loadStudentProgress(name) {
+  currentStudent = name;
+  idx = 0;
+  score = 0;
+  badges = new Set();
+
+  const id = sanitizeId(name);
+  const raw = localStorage.getItem(getStudentKey(id));
+  if (raw) {
+    try {
+      const data = JSON.parse(raw);
+      idx = data.idx ?? 0;
+      score = data.score ?? 0;
+      badges = new Set(data.badges ?? []);
+    } catch (e) {
+      console.error('Could not parse student data', e);
+    }
+  }
+  document.getElementById('studentTitle').innerText = `Student: ${currentStudent}`;
+  showWord();
+  updateStatus();
+}
 
 function showWord() {
-  if (currentUser) {
+  if (currentStudent) {
     document.getElementById('word').innerText = words[idx];
     updateStatus();
   }
@@ -43,36 +90,6 @@ function nextWord() {
   showWord();
 }
 
-async function saveProgress() {
-  if (!currentUser) return;
-  const userDoc = doc(db, 'students', currentUser.uid);
-  await setDoc(userDoc, {
-    name: currentUser.email,
-    idx,
-    score,
-    badges: [...badges],
-    updated: new Date().toISOString(),
-  });
-}
-
-async function loadProgress() {
-  if (!currentUser) return;
-  const userDoc = doc(db, 'students', currentUser.uid);
-  const docSnap = await getDoc(userDoc);
-  if (docSnap.exists()) {
-    const data = docSnap.data();
-    idx = data.idx ?? 0;
-    score = data.score ?? 0;
-    badges = new Set(data.badges ?? []);
-  } else {
-    idx = 0;
-    score = 0;
-    badges = new Set();
-  }
-  showWord();
-  updateStatus();
-}
-
 function startSpeech() {
   const resultBox = document.getElementById('result');
   resultBox.innerText = 'Listening...';
@@ -93,7 +110,7 @@ function startSpeech() {
     resultBox.innerText = 'Microphone started...';
   };
 
-  recognition.onresult = async (event) => {
+  recognition.onresult = (event) => {
     const spoken = event.results[0][0].transcript.trim().toLowerCase();
     const word = document.getElementById('word').innerText.trim().toLowerCase();
 
@@ -101,7 +118,7 @@ function startSpeech() {
       score += 10;
       resultBox.innerText = 'Correct! +' + 10 + ' points';
       checkBadges();
-      await saveProgress();
+      saveStudentProgress();
     } else {
       resultBox.innerText = 'You said: ' + spoken + ' (expected: ' + word + ')';
     }
@@ -138,104 +155,130 @@ function showTeacherArea() {
   renderTeacherTable();
 }
 
-async function renderTeacherTable() {
+function renderTeacherTable() {
   const table = document.getElementById('studentTable');
-  const querySnapshot = await getDocs(collection(db, 'students'));
-  if (querySnapshot.empty) {
+  const ids = getAllStudentIds();
+  if (!ids.length) {
     document.getElementById('teacherResult').innerText = 'No students registered yet.';
     table.innerHTML = '';
     return;
   }
 
-  document.getElementById('teacherResult').innerText = 'Showing all student progress.';
+  document.getElementById('teacherResult').innerText = 'Showing student progress from this browser.';
   let html = '<tr><th>Name</th><th>Score</th><th>Badges</th><th>Updated</th></tr>';
 
-  querySnapshot.forEach((doc) => {
-    const data = doc.data();
-    html += `<tr><td>${data.name}</td><td>${data.score}</td><td>${(data.badges||[]).join(', ') || 'None'}</td><td>${data.updated ?? 'N/A'}</td></tr>`;
+  ids.forEach((id) => {
+    const raw = localStorage.getItem(getStudentKey(id));
+    if (!raw) return;
+    let item;
+    try {
+      item = JSON.parse(raw);
+    } catch (e) {
+      return;
+    }
+    html += `<tr><td>${item.name}</td><td>${item.score}</td><td>${(item.badges||[]).join(', ') || 'None'}</td><td>${item.updated ?? 'N/A'}</td></tr>`;
   });
 
   table.innerHTML = html;
 }
 
-function resetProgress() {
+function resetStudentProgress() {
   idx = 0;
   score = 0;
   badges = new Set();
-  saveProgress();
+  saveStudentProgress();
   showWord();
   updateStatus();
   document.getElementById('result').innerText = 'Progress reset.';
 }
 
-// Auth listeners
-onAuthStateChanged(auth, async (user) => {
-  if (user) {
-    currentUser = user;
-    isTeacher = user.email === 'teacher@school.com'; // Demo teacher email
-    if (isTeacher) {
-      showTeacherArea();
-    } else {
-      await loadProgress();
-      showStudentArea();
-    }
-  } else {
-    currentUser = null;
-    isTeacher = false;
-    showLogin();
-  }
-});
-
-// Event wiring
-document.getElementById('studentLoginBtn').addEventListener('click', async () => {
-  const email = document.getElementById('studentEmailInput').value.trim();
-  const pass = document.getElementById('studentPasswordInput').value;
-  if (!email || !pass) {
-    alert('Please enter email and password.');
+function exportStudentProgress() {
+  if (!currentStudent) return;
+  const id = sanitizeId(currentStudent);
+  const raw = localStorage.getItem(getStudentKey(id));
+  if (!raw) {
+    alert('No progress to export.');
     return;
   }
-  try {
-    await signInWithEmailAndPassword(auth, email, pass);
-  } catch (error) {
-    if (error.code === 'auth/user-not-found') {
-      try {
-        await createUserWithEmailAndPassword(auth, email, pass);
-        alert('Account created! You are now logged in.');
-      } catch (createError) {
-        alert('Error: ' + createError.message);
-      }
-    } else {
-      alert('Error: ' + error.message);
-    }
+  const data = JSON.parse(raw);
+  const text = `Student: ${data.name}\nScore: ${data.score}\nBadges: ${(data.badges||[]).join(', ') || 'None'}\nUpdated: ${data.updated}`;
+  navigator.clipboard.writeText(text).then(() => {
+    alert('Progress copied to clipboard. Paste it to submit to teacher.');
+  }).catch(() => {
+    alert('Copy failed. Here is your progress:\n' + text);
+  });
+}
+
+function exportCsv() {
+  const ids = getAllStudentIds();
+  if (!ids.length) {
+    alert('No student progress to export yet.');
+    return;
   }
+
+  let csv = 'name,score,badges,updated\n';
+  ids.forEach((id) => {
+    const raw = localStorage.getItem(getStudentKey(id));
+    if (!raw) return;
+    try {
+      const item = JSON.parse(raw);
+      const row = `${item.name},${item.score},"${(item.badges||[]).join('; ')}",${item.updated}`;
+      csv += row + '\n';
+    } catch (e) {}
+  });
+
+  const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'student_progress.csv';
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
+// Event wiring
+document.getElementById('studentLoginBtn').addEventListener('click', () => {
+  const name = document.getElementById('studentNameInput').value.trim();
+  if (!name) {
+    alert('Please type your student name.');
+    return;
+  }
+  loadStudentProgress(name);
+  showStudentArea();
 });
 
-document.getElementById('teacherLoginBtn').addEventListener('click', async () => {
-  const email = 'teacher@school.com'; // Demo
+document.getElementById('teacherLoginBtn').addEventListener('click', () => {
   const pass = document.getElementById('teacherPasswordInput').value;
-  try {
-    await signInWithEmailAndPassword(auth, email, pass);
-  } catch (error) {
-    alert('Error: ' + error.message);
+  if (pass === TEACHER_PASSWORD) {
+    showTeacherArea();
+  } else {
+    alert('Wrong password. Use teacher123 (demo).');
   }
 });
 
 document.getElementById('logoutBtn').addEventListener('click', () => {
-  signOut(auth);
+  currentStudent = null;
+  showLogin();
 });
 
 document.getElementById('adminLogoutBtn').addEventListener('click', () => {
-  signOut(auth);
+  showLogin();
 });
 
 document.getElementById('refreshLogBtn').addEventListener('click', renderTeacherTable);
 
-document.getElementById('resetBtn').addEventListener('click', resetProgress);
+document.getElementById('exportCsvBtn').addEventListener('click', exportCsv);
+
+document.getElementById('resetBtn').addEventListener('click', resetStudentProgress);
+
+document.getElementById('exportBtn').addEventListener('click', exportStudentProgress);
 
 document.getElementById('startBtn').addEventListener('click', () => {
-  if (!currentUser) {
-    alert('Please log in first.');
+  if (!currentStudent) {
+    alert('Please log in first as a student.');
     return;
   }
   startSpeech();
 });
+
+showLogin();
