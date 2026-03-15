@@ -221,11 +221,20 @@ document.getElementById('studentLoginBtn').addEventListener('click', async () =>
 
 document.getElementById('teacherLoginBtn').addEventListener('click', async () => {
   const email = 'teacher@school.com'; // Demo
-  const pass = document.getElementById('teacherPasswordInput').value;
+  const pass = 'teacher123'; // Fixed password
   try {
     await signInWithEmailAndPassword(auth, email, pass);
   } catch (error) {
-    alert('Error: ' + error.message);
+    if (error.code === 'auth/user-not-found') {
+      try {
+        await createUserWithEmailAndPassword(auth, email, pass);
+        alert('Teacher account created! You are now logged in.');
+      } catch (createError) {
+        alert('Error creating teacher account: ' + createError.message);
+      }
+    } else {
+      alert('Error: ' + error.message);
+    }
   }
 });
 
