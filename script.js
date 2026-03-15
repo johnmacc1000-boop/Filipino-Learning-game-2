@@ -7,34 +7,194 @@ const STUDENT_LIST_KEY = 'filipino_student_list';
 const assessmentQuestions = {
   level1: [
     {
-      question: "Tuwing Sabado, nagluluto si Mang Juan ng adobo sa kanilang kusina. Nakikita ng mga bata ang kanyang kasipagan at natututo silang tumulong.\n\n1. Ano ang niluluto ni Mang Juan?",
+      question: "Si Ana ay nagbasa ng aklat sa silid-aklatan bago magtanghali.\n\n1. Saan nagbasa si Ana?",
+      options: {
+        A: "Bahay",
+        B: "Silid-aklatan",
+        C: "Paaralan",
+        D: "Parke"
+      },
+      correct: "B"
+    },
+    {
+      question: "Ang mga ibon ay lumilipad sa himpapawid tuwing umaga.\n\n2. Ano ang ginagawa ng mga ibon?",
+      options: {
+        A: "Kumakain",
+        B: "Lumilipad",
+        C: "Natutulog",
+        D: "Lumalangoy"
+      },
+      correct: "B"
+    },
+    {
+      question: "Si Mang Pedro ay naglalakad sa bukid upang tingnan ang kanyang mga tanim.\n\n3. Ano ang ginagawa ni Mang Pedro?",
+      options: {
+        A: "Nagluluto",
+        B: "Naglalakad",
+        C: "Natutulog",
+        D: "Nagtuturo"
+      },
+      correct: "B"
+    },
+    {
+      question: "Tuwing Sabado, nagluluto si Aling Nena ng adobo sa kanyang kusina. Nakikita ng mga bata ang kanyang kasipagan at natututo silang tumulong. Pinupunasan niya ang mga istante at inaayos ang mga produkto bago magbukas ang tindahan. Pagkatapos ay naghahanda rin siya ng pagkain para sa kanyang pamilya.\n\n4. Ano ang niluluto ni Aling Nena?",
       options: {
         A: "Sinigang",
         B: "Adobo",
         C: "Tinola",
-        D: "Kare-kare"
+        D: "Pancit"
       },
       correct: "B"
     },
     {
-      question: "Tuwing Sabado, nagluluto si Mang Juan ng adobo sa kanilang kusina. Nakikita ng mga bata ang kanyang kasipagan at natututo silang tumulong.\n\n2. Kailan nagluluto si Mang Juan?",
-      options: {
-        A: "Biyernes",
-        B: "Sabado",
-        C: "Linggo",
-        D: "Huwebes"
-      },
-      correct: "B"
-    },
-    {
-      question: "Tuwing Sabado, nagluluto si Mang Juan ng adobo sa kanilang kusina. Nakikita ng mga bata ang kanyang kasipagan at natututo silang tumulong.\n\n3. Sino ang natututo habang nagluluto si Mang Juan?",
+      question: "Tuwing Sabado, nagluluto si Aling Nena ng adobo sa kanyang kusina. Nakikita ng mga bata ang kanyang kasipagan at natututo silang tumulong. Pinupunasan niya ang mga istante at inaayos ang mga produkto bago magbukas ang tindahan. Pagkatapos ay naghahanda rin siya ng pagkain para sa kanyang pamilya.\n\n5. Sino ang natututo habang nagluluto siya?",
       options: {
         A: "Mga bata",
-        B: "Mga guro",
+        B: "Mga kaibigan",
         C: "Mga kapitbahay",
-        D: "Mga magulang"
+        D: "Mga guro"
       },
       correct: "A"
+    },
+    {
+      question: "Tuwing Sabado, nagluluto si Aling Nena ng adobo sa kanyang kusina. Nakikita ng mga bata ang kanyang kasipagan at natututo silang tumulong. Pinupunasan niya ang mga istante at inaayos ang mga produkto bago magbukas ang tindahan. Pagkatapos ay naghahanda rin siya ng pagkain para sa kanyang pamilya.\n\n6. Ano ang ginagawa niya sa tindahan bago magbukas?",
+      options: {
+        A: "Nagluluto",
+        B: "Pinupunasan at inaayos ang produkto",
+        C: "Naglalaro",
+        D: "Natutulog"
+      },
+      correct: "B"
+    },
+    {
+      question: "Tuwing Sabado, nagluluto si Aling Nena ng adobo sa kanyang kusina. Nakikita ng mga bata ang kanyang kasipagan at natututo silang tumulong. Pinupunasan niya ang mga istante at inaayos ang mga produkto bago magbukas ang tindahan. Pagkatapos ay naghahanda rin siya ng pagkain para sa kanyang pamilya.\n\n7. Ano pa ang inihahanda ni Aling Nena?",
+      options: {
+        A: "Pagkain para sa pamilya",
+        B: "Pagkain para sa mga kapitbahay",
+        C: "Pagkain para sa tindahan",
+        D: "Pagkain para sa kaibigan"
+      },
+      correct: "A"
+    },
+    {
+      question: "Binigyan tayo ng Diyos ng bibig para makapagsalita at utak para makapag isip. Ngunit, naisip ko, paano kaya ang mga piping hindi naisasalita ang kanilang mga saloobin? Paano kaya nila sasabihin sa mga tao sa paligid nila ang kanilang mga hinaing? Salamat sa internet! Ito ang nagsilbing tulay ko upang maipahayag sa aking mga kausap ang ilang mga bagay na hindi ko kayang maiparating nang tuwiran. Dito namin ipinapakalat ang mga nalilikha naming mga tula, sanaysay, at artikulong magbubukas ng isip sa kapwa kabataan namin. Para akong piping natutong magsalita. Salamat kay Mama sapagkat natuklasan kong maging Mendiola ang internet na naging dahilan sa pagsasatinig ng aking mga saloobin.\n\n9. Ano ang nagsilbing tulay ng may akda upang maipahayag ang kanyang saloobin?",
+      options: {
+        A: "Telepono",
+        B: "Internet",
+        C: "Radyo",
+        D: "Telebisyon"
+      },
+      correct: "B"
+    },
+    {
+      question: "Binigyan tayo ng Diyos ng bibig para makapagsalita at utak para makapag isip. Ngunit, naisip ko, paano kaya ang mga piping hindi naisasalita ang kanilang mga saloobin? Paano kaya nila sasabihin sa mga tao sa paligid nila ang kanilang mga hinaing? Salamat sa internet! Ito ang nagsilbing tulay ko upang maipahayag sa aking mga kausap ang ilang mga bagay na hindi ko kayang maiparating nang tuwiran. Dito namin ipinapakalat ang mga nalilikha naming mga tula, sanaysay, at artikulong magbubukas ng isip sa kapwa kabataan namin. Para akong piping natutong magsalita. Salamat kay Mama sapagkat natuklasan kong maging Mendiola ang internet na naging dahilan sa pagsasatinig ng aking mga saloobin.\n\n10. Ano ang pinagkakalooban ng Diyos ayon sa sanaysay?",
+      options: {
+        A: "Bibig at utak para magsalita at mag isip",
+        B: "Kayamanan at kapangyarihan",
+        C: "Isang tahanan",
+        D: "Aklat at pera"
+      },
+      correct: "A"
+    },
+    {
+      question: "Binigyan tayo ng Diyos ng bibig para makapagsalita at utak para makapag isip. Ngunit, naisip ko, paano kaya ang mga piping hindi naisasalita ang kanilang mga saloobin? Paano kaya nila sasabihin sa mga tao sa paligid nila ang kanilang mga hinaing? Salamat sa internet! Ito ang nagsilbing tulay ko upang maipahayag sa aking mga kausap ang ilang mga bagay na hindi ko kayang maiparating nang tuwiran. Dito namin ipinapakalat ang mga nalilikha naming mga tula, sanaysay, at artikulong magbubukas ng isip sa kapwa kabataan namin. Para akong piping natutong magsalita. Salamat kay Mama sapagkat natuklasan kong maging Mendiola ang internet na naging dahilan sa pagsasatinig ng aking mga saloobin.\n\n11. Ano ang tinutukoy ng may akda na kayang ipahayag gamit ang internet?",
+      options: {
+        A: "Laro at musika",
+        B: "Mga saloobin at opinyon",
+        C: "Pagluluto",
+        D: "Libangan lamang"
+      },
+      correct: "B"
+    },
+    {
+      question: "Binigyan tayo ng Diyos ng bibig para makapagsalita at utak para makapag isip. Ngunit, naisip ko, paano kaya ang mga piping hindi naisasalita ang kanilang mga saloobin? Paano kaya nila sasabihin sa mga tao sa paligid nila ang kanilang mga hinaing? Salamat sa internet! Ito ang nagsilbing tulay ko upang maipahayag sa aking mga kausap ang ilang mga bagay na hindi ko kayang maiparating nang tuwiran. Dito namin ipinapakalat ang mga nalilikha naming mga tula, sanaysay, at artikulong magbubukas ng isip sa kapwa kabataan namin. Para akong piping natutong magsalita. Salamat kay Mama sapagkat natuklasan kong maging Mendiola ang internet na naging dahilan sa pagsasatinig ng aking mga saloobin.\n\n12. Bakit pinasalamatan ng may akda ang kanyang Mama?",
+      options: {
+        A: "Dahil sa pagkain",
+        B: "Dahil naging dahilan na maging Mendiola ang internet para sa kanya",
+        C: "Dahil sa pera",
+        D: "Dahil sa paglalakbay"
+      },
+      correct: "B"
+    },
+    {
+      question: "“Saan ka pupunta, O, Sundalong Patpat,” tanong ng sampalok.\n\n“Hahanapin ko ang nawawalang ulan,” sagot ng Sundalong Patpat habang inaayos ang papel na sombrero.\n\n“Pero hindi hinahanap ang ulan,” nagtatakang sabi ng sampalok.\n\n“Kung gayon, aalamin ko kung bakit matagal nang ayaw dumalaw ng ulan,” sagot ng sundalo at pinatakbo ang kaniyang kabayong payat.\n\n13. Sino ang nagtanong sa Sundalong Patpat?",
+      options: {
+        A: "Manok",
+        B: "Bundok",
+        C: "Sampalok",
+        D: "Ulap"
+      },
+      correct: "C"
+    },
+    {
+      question: "“Saan ka pupunta, O, Sundalong Patpat,” tanong ng sampalok.\n\n“Hahanapin ko ang nawawalang ulan,” sagot ng Sundalong Patpat habang inaayos ang papel na sombrero.\n\n“Pero hindi hinahanap ang ulan,” nagtatakang sabi ng sampalok.\n\n“Kung gayon, aalamin ko kung bakit matagal nang ayaw dumalaw ng ulan,” sagot ng sundalo at pinatakbo ang kaniyang kabayong payat.\n\n14. Ano ang sinasabi ng Sundalong Patpat na kanyang hinahanap?",
+      options: {
+        A: "Kayamanan",
+        B: "Nawawalang ulan",
+        C: "Ginto",
+        D: "Kaibigan"
+      },
+      correct: "B"
+    },
+    {
+      question: "“Saan ka pupunta, O, Sundalong Patpat,” tanong ng sampalok.\n\n“Hahanapin ko ang nawawalang ulan,” sagot ng Sundalong Patpat habang inaayos ang papel na sombrero.\n\n“Pero hindi hinahanap ang ulan,” nagtatakang sabi ng sampalok.\n\n“Kung gayon, aalamin ko kung bakit matagal nang ayaw dumalaw ng ulan,” sagot ng sundalo at pinatakbo ang kaniyang kabayong payat.\n\n15. Ano ang sinabi ng sampalok tungkol sa ulan?",
+      options: {
+        A: "Ito ay laging narito",
+        B: "Hindi ito hinahanap",
+        C: "Ito ay madaling makita",
+        D: "Ito ay kanyang dala"
+      },
+      correct: "B"
+    },
+    {
+      question: "Maganda at payapa ang ilog at ang dagat sa bayan ng Laguna noong araw. Ang mga bangkang yari sa kahoy ay ginagamit sa paglalakbay at pangingisda, at madalas silang sumasakay papunta sa kabilang pampang.\n\nIsang araw, nakasakay si Jose Rizal kasama ang kanyang pamilya at mga kaibigan sa isang bangka habang sila ay naglalakbay sa Laguna de Bay. Habang naglalaro at nakatitig sa tubig, nahulog ang isa niyang tsinelas sa gitna ng lawa at inanod kaagad ng agos.\n\nSinubukan niyang abutin ito, ngunit hindi na niya nahabol dahil mabilis ang pag agos ng tubig. Napatingin siya sa kanyang nanay at, sa hindi inaasahang kilos, itinapon niya rin ang kabilang tsinelas sa tubig.\n\nNag tataka ang kanyang mga kasama at nagtanong, “Bakit mo itinapon ang iyong isa pang tsinelas?”\n\nSagot ni Jose, “Isang tsinelas ang nawala na, at wala rin itong silbi kung wala ang kapareha. Kung sino mang makakita ng pares nito ay magagamit niya ito ng mabuti.”\n\nNapatingin ulit siya sa kanyang ina at marahil, naunawaan niya ang dahilan sa likod ng kakaibang kilos ng batang si Jose.\n\n16. Ano ang ginamit na sasakyan ni Jose Rizal at ng kanyang pamilya sa paglalakbay?",
+      options: {
+        A: "Kalesa",
+        B: "Bangka",
+        C: "Tren",
+        D: "Eroplano"
+      },
+      correct: "B"
+    },
+    {
+      question: "Maganda at payapa ang ilog at ang dagat sa bayan ng Laguna noong araw. Ang mga bangkang yari sa kahoy ay ginagamit sa paglalakbay at pangingisda, at madalas silang sumasakay papunta sa kabilang pampang.\n\nIsang araw, nakasakay si Jose Rizal kasama ang kanyang pamilya at mga kaibigan sa isang bangka habang sila ay naglalakbay sa Laguna de Bay. Habang naglalaro at nakatitig sa tubig, nahulog ang isa niyang tsinelas sa gitna ng lawa at inanod kaagad ng agos.\n\nSinubukan niyang abutin ito, ngunit hindi na niya nahabol dahil mabilis ang pag agos ng tubig. Napatingin siya sa kanyang nanay at, sa hindi inaasahang kilos, itinapon niya rin ang kabilang tsinelas sa tubig.\n\nNag tataka ang kanyang mga kasama at nagtanong, “Bakit mo itinapon ang iyong isa pang tsinelas?”\n\nSagot ni Jose, “Isang tsinelas ang nawala na, at wala rin itong silbi kung wala ang kapareha. Kung sino mang makakita ng pares nito ay magagamit niya ito ng mabuti.”\n\nNapatingin ulit siya sa kanyang ina at marahil, naunawaan niya ang dahilan sa likod ng kakaibang kilos ng batang si Jose.\n\n17. Ano ang nahulog sa tubig habang sila ay nasa bangka?",
+      options: {
+        A: "Isang payong",
+        B: "Isang tsinelas",
+        C: "Isang sumbrero",
+        D: "Isang bag"
+      },
+      correct: "B"
+    },
+    {
+      question: "Maganda at payapa ang ilog at ang dagat sa bayan ng Laguna noong araw. Ang mga bangkang yari sa kahoy ay ginagamit sa paglalakbay at pangingisda, at madalas silang sumasakay papunta sa kabilang pampang.\n\nIsang araw, nakasakay si Jose Rizal kasama ang kanyang pamilya at mga kaibigan sa isang bangka habang sila ay naglalakbay sa Laguna de Bay. Habang naglalaro at nakatitig sa tubig, nahulog ang isa niyang tsinelas sa gitna ng lawa at inanod kaagad ng agos.\n\nSinubukan niyang abutin ito, ngunit hindi na niya nahabol dahil mabilis ang pag agos ng tubig. Napatingin siya sa kanyang nanay at, sa hindi inaasahang kilos, itinapon niya rin ang kabilang tsinelas sa tubig.\n\nNag tataka ang kanyang mga kasama at nagtanong, “Bakit mo itinapon ang iyong isa pang tsinelas?”\n\nSagot ni Jose, “Isang tsinelas ang nawala na, at wala rin itong silbi kung wala ang kapareha. Kung sino mang makakita ng pares nito ay magagamit niya ito ng mabuti.”\n\nNapatingin ulit siya sa kanyang ina at marahil, naunawaan niya ang dahilan sa likod ng kakaibang kilos ng batang si Jose.\n\n18. Sino ang nagtatanong tungkol sa pag itapon ng tsinelas?",
+      options: {
+        A: "Ang guro",
+        B: "Ang nanay ni Jose",
+        C: "Ang kasama at mga kaibigan",
+        D: "Ang iba pang bata"
+      },
+      correct: "C"
+    },
+    {
+      question: "Maganda at payapa ang ilog at ang dagat sa bayan ng Laguna noong araw. Ang mga bangkang yari sa kahoy ay ginagamit sa paglalakbay at pangingisda, at madalas silang sumasakay papunta sa kabilang pampang.\n\nIsang araw, nakasakay si Jose Rizal kasama ang kanyang pamilya at mga kaibigan sa isang bangka habang sila ay naglalakbay sa Laguna de Bay. Habang naglalaro at nakatitig sa tubig, nahulog ang isa niyang tsinelas sa gitna ng lawa at inanod kaagad ng agos.\n\nSinubukan niyang abutin ito, ngunit hindi na niya nahabol dahil mabilis ang pag agos ng tubig. Napatingin siya sa kanyang nanay at, sa hindi inaasahang kilos, itinapon niya rin ang kabilang tsinelas sa tubig.\n\nNag tataka ang kanyang mga kasama at nagtanong, “Bakit mo itinapon ang iyong isa pang tsinelas?”\n\nSagot ni Jose, “Isang tsinelas ang nawala na, at wala rin itong silbi kung wala ang kapareha. Kung sino mang makakita ng pares nito ay magagamit niya ito ng mabuti.”\n\nNapatingin ulit siya sa kanyang ina at marahil, naunawaan niya ang dahilan sa likod ng kakaibang kilos ng batang si Jose.\n\n19. Ano ang dahilan ni Jose kung bakit niya itinapon ang pangalawang tsinelas?",
+      options: {
+        A: "Para siya ay mag laro",
+        B: "Para mas madaling makasama ang agos",
+        C: "Para magamit ito ng makakakita ng pares nito",
+        D: "Para sa kanyang ina"
+      },
+      correct: "C"
+    },
+    {
+      question: "Maganda at payapa ang ilog at ang dagat sa bayan ng Laguna noong araw. Ang mga bangkang yari sa kahoy ay ginagamit sa paglalakbay at pangingisda, at madalas silang sumasakay papunta sa kabilang pampang.\n\nIsang araw, nakasakay si Jose Rizal kasama ang kanyang pamilya at mga kaibigan sa isang bangka habang sila ay naglalakbay sa Laguna de Bay. Habang naglalaro at nakatitig sa tubig, nahulog ang isa niyang tsinelas sa gitna ng lawa at inanod kaagad ng agos.\n\nSinubukan niyang abutin ito, ngunit hindi na niya nahabol dahil mabilis ang pag agos ng tubig. Napatingin siya sa kanyang nanay at, sa hindi inaasahang kilos, itinapon niya rin ang kabilang tsinelas sa tubig.\n\nNag tataka ang kanyang mga kasama at nagtanong, “Bakit mo itinapon ang iyong isa pang tsinelas?”\n\nSagot ni Jose, “Isang tsinelas ang nawala na, at wala rin itong silbi kung wala ang kapareha. Kung sino mang makakita ng pares nito ay magagamit niya ito ng mabuti.”\n\nNapatingin ulit siya sa kanyang ina at marahil, naunawaan niya ang dahilan sa likod ng kakaibang kilos ng batang si Jose.\n\n20. Ano ang ibig sabihin ng kilos ni Jose sa anekdota?",
+      options: {
+        A: "Siya ay tamad",
+        B: "Siya ay makasarili",
+        C: "Siya ay praktikal at iniisip ang kapakanan ng iba",
+        D: "Siya ay walang pakialam"
+      },
+      correct: "C"
     }
   ],
   level2: [],
