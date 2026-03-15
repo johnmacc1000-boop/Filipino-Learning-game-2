@@ -237,48 +237,52 @@ function exportCsv() {
 }
 
 // Event wiring
-document.getElementById('studentLoginBtn').addEventListener('click', () => {
-  const name = document.getElementById('studentNameInput').value.trim();
-  if (!name) {
-    alert('Please type your student name.');
-    return;
-  }
-  loadStudentProgress(name);
-  showStudentArea();
-});
+window.addEventListener('DOMContentLoaded', () => {
+  console.log('DOM loaded, wiring buttons');
 
-document.getElementById('teacherLoginBtn').addEventListener('click', () => {
-  const pass = document.getElementById('teacherPasswordInput').value;
-  if (pass === TEACHER_PASSWORD) {
-    showTeacherArea();
-  } else {
-    alert('Wrong password. Use teacher123 (demo).');
-  }
-});
+  document.getElementById('studentLoginBtn').addEventListener('click', () => {
+    const name = document.getElementById('studentNameInput').value.trim();
+    if (!name) {
+      alert('Please type your student name.');
+      return;
+    }
+    loadStudentProgress(name);
+    showStudentArea();
+  });
 
-document.getElementById('logoutBtn').addEventListener('click', () => {
-  currentStudent = null;
+  document.getElementById('teacherLoginBtn').addEventListener('click', () => {
+    const pass = document.getElementById('teacherPasswordInput').value;
+    if (pass === TEACHER_PASSWORD) {
+      showTeacherArea();
+    } else {
+      alert('Wrong password. Use teacher123 (demo).');
+    }
+  });
+
+  document.getElementById('logoutBtn').addEventListener('click', () => {
+    currentStudent = null;
+    showLogin();
+  });
+
+  document.getElementById('adminLogoutBtn').addEventListener('click', () => {
+    showLogin();
+  });
+
+  document.getElementById('refreshLogBtn').addEventListener('click', renderTeacherTable);
+
+  document.getElementById('exportCsvBtn').addEventListener('click', exportCsv);
+
+  document.getElementById('resetBtn').addEventListener('click', resetStudentProgress);
+
+  document.getElementById('exportBtn').addEventListener('click', exportStudentProgress);
+
+  document.getElementById('startBtn').addEventListener('click', () => {
+    if (!currentStudent) {
+      alert('Please log in first as a student.');
+      return;
+    }
+    startSpeech();
+  });
+
   showLogin();
 });
-
-document.getElementById('adminLogoutBtn').addEventListener('click', () => {
-  showLogin();
-});
-
-document.getElementById('refreshLogBtn').addEventListener('click', renderTeacherTable);
-
-document.getElementById('exportCsvBtn').addEventListener('click', exportCsv);
-
-document.getElementById('resetBtn').addEventListener('click', resetStudentProgress);
-
-document.getElementById('exportBtn').addEventListener('click', exportStudentProgress);
-
-document.getElementById('startBtn').addEventListener('click', () => {
-  if (!currentStudent) {
-    alert('Please log in first as a student.');
-    return;
-  }
-  startSpeech();
-});
-
-showLogin();
