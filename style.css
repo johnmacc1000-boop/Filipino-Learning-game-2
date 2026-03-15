@@ -1,12 +1,12 @@
 /* Global */
 :root {
-  --bg: #1e1f24;
-  --surface: #2a2c35;
-  --surface-2: #323444;
-  --text: #e8e8f0;
-  --muted: rgba(232, 232, 240, 0.7);
-  --accent: #4fc3f7;
-  --accent-2: #ffb74d;
+  --bg: #2d1b1b;
+  --surface: #4a2c2c;
+  --surface-2: #5a3a3a;
+  --text: #ffe4e1;
+  --muted: rgba(255, 228, 225, 0.7);
+  --accent: #ff4500;
+  --accent-2: #ff1493;
   --danger: #ff5c5c;
   --border: rgba(255, 255, 255, 0.08);
 }
@@ -30,7 +30,7 @@
 body {
   margin: 0;
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  background: radial-gradient(circle at top, #2c2f3a 0%, var(--bg) 80%);
+  background: linear-gradient(135deg, #ff4500, #ff1493);
   color: var(--text);
   min-height: 100vh;
   display: flex;
@@ -133,10 +133,15 @@ button.secondary {
   font-size: 1.1rem;
 }
 
-.course-card p {
-  margin: 0 0 1rem 0;
-  color: var(--muted);
-  font-size: 0.9rem;
+#levelSelection {
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+#levelSelection button {
+  display: block;
+  margin: 0.5rem auto;
+  width: 200px;
 }
 
 #result {
@@ -176,14 +181,29 @@ button.secondary {
   text-shadow: 0 1px 1px rgba(0, 0, 0, 0.35);
 }
 
-#studentArea,
-#teacherArea {
-  margin-top: 1.5rem;
+#studentArea {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: auto;
+  background: linear-gradient(135deg, #ff4500, #ff1493);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  box-sizing: border-box;
 }
 
-#studentArea .card,
-#teacherArea .card {
-  margin-top: 1rem;
+#studentArea .card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 1.5rem;
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.35);
+  width: 100%;
+  max-width: 980px;
 }
 
 #teacherDashboard {

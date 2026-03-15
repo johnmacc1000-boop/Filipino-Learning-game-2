@@ -2,12 +2,10 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>TEKNO-BASA</title>
+  <title>Filipino Learning Game</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <h1>TEKNO-BASA</h1>
-
   <main id="loginArea">
     <div class="card login-grid">
       <div>
@@ -78,8 +76,14 @@
     </div>
 
     <div id="studentAssessment" style="display: none;">
-      <h3 id="assessmentTitle">Panimulang Pagtataya</h3>
-      <div id="questionContainer">
+      <div id="levelSelection">
+        <h3>Select Level for Panimulang Pagtataya</h3>
+        <button id="level1Btn">Level 1 (20 questions)</button>
+        <button id="level2Btn">Level 2 (20 questions)</button>
+        <button id="level3Btn">Level 3 (10 questions)</button>
+      </div>
+      <h3 id="assessmentTitle" style="display: none;">Panimulang Pagtataya - Level <span id="currentLevelSpan"></span></h3>
+      <div id="questionContainer" style="display: none;">
         <p id="questionText"></p>
         <div id="optionsContainer">
           <label><input type="radio" name="option" value="A"> <span id="optionA"></span></label><br>
@@ -88,10 +92,11 @@
           <label><input type="radio" name="option" value="D"> <span id="optionD"></span></label><br>
         </div>
       </div>
-      <button id="submitAnswerBtn">Submit Answer</button>
+      <button id="submitAnswerBtn" style="display: none;">Submit Answer</button>
       <div id="assessmentResult" style="margin-top: 1rem;"></div>
       <div style="margin-top: 1rem; display: flex; gap: 0.5rem; flex-wrap: wrap;">
         <button id="nextQuestionBtn" style="display: none;">Next Question</button>
+        <button id="backToLevelsBtn" style="display: none;" class="secondary">Back to Levels</button>
         <button id="backToCoursesFromAssessmentBtn" class="secondary">Back to courses</button>
       </div>
     </div>
