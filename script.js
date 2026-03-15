@@ -1,3 +1,7 @@
+import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-auth.js";
+import { getFirestore, doc, setDoc, getDoc, collection, getDocs } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
+
 const firebaseConfig = {
   apiKey: "AIzaSyAjgDNIb7Jkm5jbxS6lHdNBS_3qb9nHQWc",
   authDomain: "filipino-learning-game.firebaseapp.com",
@@ -230,6 +234,27 @@ document.getElementById('adminLogoutBtn').addEventListener('click', () => {
 });
 
 document.getElementById('refreshLogBtn').addEventListener('click', renderTeacherTable);
+
+document.getElementById('exportCsvBtn').addEventListener('click', async () => {
+  const querySnapshot = await getDocs(collection(db, 'students'));
+  if (querySnapshot.empty) {
+    alert('No data to export.');
+    return;
+  }
+  let csv = 'name,score,badges,updated\n';
+  querySnapshot.forEach((doc) => {
+    const data = doc.data();
+    const row = `${data.name},${data.score},"${(data.badges||[]).join('; ')}",${data.updated}`;
+    csv += row + '\n';
+  });
+  const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'student_progress.csv';
+  a.click();
+  URL.revokeObjectURL(url);
+});
 
 document.getElementById('resetBtn').addEventListener('click', resetProgress);
 
