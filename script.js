@@ -261,7 +261,12 @@ function exportCsv() {
 // Event wiring
 window.addEventListener('DOMContentLoaded', () => {
   console.log('DOM loaded, wiring buttons');
+  const allIds = Array.from(document.querySelectorAll('[id]')).map((el) => el.id);
+  console.log('All IDs in DOM:', allIds.join(', '));
   console.log('Available elements:', {
+    loginArea: document.getElementById('loginArea'),
+    studentArea: document.getElementById('studentArea'),
+    teacherArea: document.getElementById('teacherArea'),
     studentLoginBtn: document.getElementById('studentLoginBtn'),
     teacherLoginBtn: document.getElementById('teacherLoginBtn'),
     startBtn: document.getElementById('startBtn'),
