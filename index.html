@@ -8,23 +8,34 @@
 <body>
   <h1>Filipino Reading Game</h1>
 
-  <section id="loginArea">
-    <h2>Login / Register</h2>
-    <p>
-      Student name: <input id="studentNameInput" placeholder="Type your name" />
-      <button id="studentLoginBtn">Start as Student</button>
-    </p>
-    <p>
-      <hr />
-    </p>
-    <p>
-      Teacher password: <input id="teacherPasswordInput" type="password" placeholder="teacher123" />
-      <button id="teacherLoginBtn">Teacher Login</button>
-    </p>
-    <div id="loginHint">Teacher password is teacher123 (demo).</div>
-  </section>
+  <main>
+    <div class="card login-grid">
+      <div>
+        <h2>Student Login</h2>
+        <p>
+          <label for="studentNameInput" class="sr-only">Student name</label>
+          <input id="studentNameInput" placeholder="Type your name" />
+        </p>
+        <p>
+          <button id="studentLoginBtn">Start as Student</button>
+        </p>
+      </div>
 
-  <section id="studentArea" style="display: none;">
+      <div>
+        <h2>Teacher Login</h2>
+        <p>
+          <label for="teacherPasswordInput" class="sr-only">Teacher password</label>
+          <input id="teacherPasswordInput" type="password" placeholder="teacher123" />
+        </p>
+        <p>
+          <button id="teacherLoginBtn">Teacher Login</button>
+        </p>
+        <div id="loginHint">Teacher password: <strong>teacher123</strong></div>
+      </div>
+    </div>
+  </main>
+
+  <section id="studentArea" class="card" style="display: none;">
     <h2 id="studentTitle"></h2>
     <div id="wordContainer">
       <strong>Word:</strong>
@@ -42,11 +53,13 @@
     <button id="logoutBtn">Logout</button>
   </section>
 
-  <section id="teacherArea" style="display: none;">
+  <section id="teacherArea" class="card" style="display: none;">
     <h2>Teacher Dashboard</h2>
-    <button id="refreshLogBtn">Refresh student list</button>
-    <button id="exportCsvBtn">Export CSV</button>
-    <button id="adminLogoutBtn">Logout</button>
+    <div class="login-grid" style="grid-template-columns: auto auto; gap: 0.8rem;">
+      <button id="refreshLogBtn">Refresh student list</button>
+      <button id="exportCsvBtn">Export CSV</button>
+      <button id="adminLogoutBtn" class="secondary">Logout</button>
+    </div>
 
     <div id="teacherResult"></div>
     <table id="studentTable" border="1" style="width: 100%; margin-top: 1rem; border-collapse: collapse;"></table>
