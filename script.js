@@ -220,21 +220,21 @@ document.getElementById('studentLoginBtn').addEventListener('click', async () =>
 });
 
 document.getElementById('teacherLoginBtn').addEventListener('click', async () => {
-  const email = 'teacher3@school.com'; // Changed again
-  const pass = 'teacher123'; // Fixed password
+  const email = 'teacher3@school.com';
+  const pass = 'teacher123';
   try {
-    await signInWithEmailAndPassword(auth, email, pass);
+    await createUserWithEmailAndPassword(auth, email, pass);
+    alert('Teacher account created and logged in.');
   } catch (error) {
-    console.log('Teacher login error:', error.code, error.message);
-    if (error.code === 'auth/user-not-found') {
+    if (error.code === 'auth/email-already-in-use') {
       try {
-        await createUserWithEmailAndPassword(auth, email, pass);
-        alert('Teacher account created! You are now logged in.');
-      } catch (createError) {
-        alert('Error creating teacher account: ' + createError.message);
+        await signInWithEmailAndPassword(auth, email, pass);
+        alert('Logged in as teacher.');
+      } catch (signInError) {
+        alert('Error signing in: ' + signInError.message);
       }
     } else {
-      alert('Error: ' + error.code + ' - ' + error.message);
+      alert('Error creating account: ' + error.message);
     }
   }
 });
