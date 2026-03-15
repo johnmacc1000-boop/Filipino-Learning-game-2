@@ -178,7 +178,7 @@ function resetProgress() {
 onAuthStateChanged(auth, async (user) => {
   if (user) {
     currentUser = user;
-    isTeacher = user.email === 'teacher@school.com'; // Demo teacher email
+    isTeacher = user.email === 'teacher3@school.com'; // Updated
     if (isTeacher) {
       showTeacherArea();
     } else {
@@ -220,11 +220,12 @@ document.getElementById('studentLoginBtn').addEventListener('click', async () =>
 });
 
 document.getElementById('teacherLoginBtn').addEventListener('click', async () => {
-  const email = 'teacher@school.com'; // Demo
+  const email = 'teacher3@school.com'; // Changed again
   const pass = 'teacher123'; // Fixed password
   try {
     await signInWithEmailAndPassword(auth, email, pass);
   } catch (error) {
+    console.log('Teacher login error:', error.code, error.message);
     if (error.code === 'auth/user-not-found') {
       try {
         await createUserWithEmailAndPassword(auth, email, pass);
@@ -233,7 +234,7 @@ document.getElementById('teacherLoginBtn').addEventListener('click', async () =>
         alert('Error creating teacher account: ' + createError.message);
       }
     } else {
-      alert('Error: ' + error.message);
+      alert('Error: ' + error.code + ' - ' + error.message);
     }
   }
 });
