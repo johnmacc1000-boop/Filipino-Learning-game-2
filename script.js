@@ -1,16 +1,10 @@
-import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-auth.js";
-import { getFirestore, doc, setDoc, getDoc, collection, getDocs } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
-
-console.log('Script starting...');
-
 const firebaseConfig = {
-  apiKey: "AIzaSyAjgDNIb7Jkm5jbxS6lHdNBS_3qb9nHQWc",
-  authDomain: "filipino-learning-game.firebaseapp.com",
-  projectId: "filipino-learning-game",
-  storageBucket: "filipino-learning-game.firebasestorage.app",
-  messagingSenderId: "246534782161",
-  appId: "1:246534782161:web:9b445c98995f7d4f9c19f0"
+  apiKey: "AIzaSyB31bRJnV6l9tFw0S5JLeNwY_he-wF7iwc",
+  authDomain: "flg2-ace85.firebaseapp.com",
+  projectId: "flg2-ace85",
+  storageBucket: "flg2-ace85.firebasestorage.app",
+  messagingSenderId: "611839428556",
+  appId: "1:611839428556:web:1df3b570d94579c9067f69"
 };
 
 const app = initializeApp(firebaseConfig);
@@ -178,7 +172,7 @@ function resetProgress() {
 onAuthStateChanged(auth, async (user) => {
   if (user) {
     currentUser = user;
-    isTeacher = user.email === 'teacher3@school.com'; // Updated
+    isTeacher = user.email === 'teacher@school.com'; // Demo teacher email
     if (isTeacher) {
       showTeacherArea();
     } else {
@@ -193,10 +187,7 @@ onAuthStateChanged(auth, async (user) => {
 });
 
 // Event wiring
-console.log('Script loaded, attaching event listeners...');
-
 document.getElementById('studentLoginBtn').addEventListener('click', async () => {
-  console.log('Student login clicked');
   const email = document.getElementById('studentEmailInput').value.trim();
   const pass = document.getElementById('studentPasswordInput').value;
   if (!email || !pass) {
@@ -220,22 +211,12 @@ document.getElementById('studentLoginBtn').addEventListener('click', async () =>
 });
 
 document.getElementById('teacherLoginBtn').addEventListener('click', async () => {
-  const email = 'teacher3@school.com';
-  const pass = 'teacher123';
+  const email = 'teacher@school.com'; // Demo
+  const pass = document.getElementById('teacherPasswordInput').value;
   try {
-    await createUserWithEmailAndPassword(auth, email, pass);
-    alert('Teacher account created and logged in.');
+    await signInWithEmailAndPassword(auth, email, pass);
   } catch (error) {
-    if (error.code === 'auth/email-already-in-use') {
-      try {
-        await signInWithEmailAndPassword(auth, email, pass);
-        alert('Logged in as teacher.');
-      } catch (signInError) {
-        alert('Error signing in: ' + signInError.message);
-      }
-    } else {
-      alert('Error creating account: ' + error.message);
-    }
+    alert('Error: ' + error.message);
   }
 });
 
@@ -249,27 +230,6 @@ document.getElementById('adminLogoutBtn').addEventListener('click', () => {
 
 document.getElementById('refreshLogBtn').addEventListener('click', renderTeacherTable);
 
-document.getElementById('exportCsvBtn').addEventListener('click', async () => {
-  const querySnapshot = await getDocs(collection(db, 'students'));
-  if (querySnapshot.empty) {
-    alert('No data to export.');
-    return;
-  }
-  let csv = 'name,score,badges,updated\n';
-  querySnapshot.forEach((doc) => {
-    const data = doc.data();
-    const row = `${data.name},${data.score},"${(data.badges||[]).join('; ')}",${data.updated}`;
-    csv += row + '\n';
-  });
-  const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.href = url;
-  a.download = 'student_progress.csv';
-  a.click();
-  URL.revokeObjectURL(url);
-});
-
 document.getElementById('resetBtn').addEventListener('click', resetProgress);
 
 document.getElementById('startBtn').addEventListener('click', () => {
@@ -279,5 +239,3 @@ document.getElementById('startBtn').addEventListener('click', () => {
   }
   startSpeech();
 });
-
-showLogin();
