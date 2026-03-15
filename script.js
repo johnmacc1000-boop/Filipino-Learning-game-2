@@ -6,7 +6,7 @@ const STUDENT_LIST_KEY = 'filipino_student_list';
 
 const assessmentQuestions = [
   {
-    question: "Tuwing Sabado, nagluluto si Mang Juan ng adobo sa kanilang kusina. Nakikita ng mga bata ang kanyang kasipagan at natututo silang tumulong.",
+    question: "Tuwing Sabado, nagluluto si Mang Juan ng adobo sa kanilang kusina. Nakikita ng mga bata ang kanyang kasipagan at natututo silang tumulong.\n\n1. Ano ang niluluto ni Mang Juan?",
     options: {
       A: "Sinigang",
       B: "Adobo",
@@ -16,7 +16,7 @@ const assessmentQuestions = [
     correct: "B"
   },
   {
-    question: "Tuwing Sabado, nagluluto si Mang Juan ng adobo sa kanilang kusina. Nakikita ng mga bata ang kanyang kasipagan at natututo silang tumulong.",
+    question: "Tuwing Sabado, nagluluto si Mang Juan ng adobo sa kanilang kusina. Nakikita ng mga bata ang kanyang kasipagan at natututo silang tumulong.\n\n2. Kailan nagluluto si Mang Juan?",
     options: {
       A: "Biyernes",
       B: "Sabado",
@@ -26,7 +26,7 @@ const assessmentQuestions = [
     correct: "B"
   },
   {
-    question: "Tuwing Sabado, nagluluto si Mang Juan ng adobo sa kanilang kusina. Nakikita ng mga bata ang kanyang kasipagan at natututo silang tumulong.",
+    question: "Tuwing Sabado, nagluluto si Mang Juan ng adobo sa kanilang kusina. Nakikita ng mga bata ang kanyang kasipagan at natututo silang tumulong.\n\n3. Sino ang natututo habang nagluluto si Mang Juan?",
     options: {
       A: "Mga bata",
       B: "Mga guro",
