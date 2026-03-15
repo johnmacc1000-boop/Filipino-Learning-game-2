@@ -4,6 +4,11 @@
   <meta charset="UTF-8" />
   <title>Filipino Learning Game</title>
   <link rel="stylesheet" href="style.css" />
+  <script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
+  import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-auth.js";
+  import { getFirestore, doc, setDoc, getDoc, collection, getDocs } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
+</script>
 </head>
 <body>
   <h1>Filipino Reading Game</h1>
@@ -11,8 +16,9 @@
   <section id="loginArea">
     <h2>Login / Register</h2>
     <p>
-      Student name: <input id="studentNameInput" placeholder="Type your name" />
-      <button id="studentLoginBtn">Start as Student</button>
+      Student email: <input id="studentEmailInput" placeholder="student@school.com" />
+      Password: <input id="studentPasswordInput" type="password" />
+      <button id="studentLoginBtn">Login/Register as Student</button>
     </p>
     <p>
       <hr />
@@ -21,7 +27,7 @@
       Teacher password: <input id="teacherPasswordInput" type="password" placeholder="teacher123" />
       <button id="teacherLoginBtn">Teacher Login</button>
     </p>
-    <div id="loginHint">Use teacher password <strong>teacher123</strong> (demo).</div>
+    <div id="loginHint">Teacher email is teacher@school.com (demo).</div>
   </section>
 
   <section id="studentArea" style="display: none;">
