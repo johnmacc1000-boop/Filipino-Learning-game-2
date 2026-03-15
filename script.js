@@ -137,21 +137,42 @@ function startSpeech() {
 }
 
 function showLogin() {
-  document.getElementById('loginArea').style.display = 'block';
-  document.getElementById('studentArea').style.display = 'none';
-  document.getElementById('teacherArea').style.display = 'none';
+  const loginArea = document.getElementById('loginArea');
+  const studentArea = document.getElementById('studentArea');
+  const teacherArea = document.getElementById('teacherArea');
+  if (!loginArea || !studentArea || !teacherArea) {
+    console.warn('Some UI sections are missing; cannot show login.');
+    return;
+  }
+  loginArea.style.display = 'block';
+  studentArea.style.display = 'none';
+  teacherArea.style.display = 'none';
 }
 
 function showStudentArea() {
-  document.getElementById('loginArea').style.display = 'none';
-  document.getElementById('studentArea').style.display = 'block';
-  document.getElementById('teacherArea').style.display = 'none';
+  const loginArea = document.getElementById('loginArea');
+  const studentArea = document.getElementById('studentArea');
+  const teacherArea = document.getElementById('teacherArea');
+  if (!loginArea || !studentArea || !teacherArea) {
+    console.warn('Some UI sections are missing; cannot show student area.');
+    return;
+  }
+  loginArea.style.display = 'none';
+  studentArea.style.display = 'block';
+  teacherArea.style.display = 'none';
 }
 
 function showTeacherArea() {
-  document.getElementById('loginArea').style.display = 'none';
-  document.getElementById('studentArea').style.display = 'none';
-  document.getElementById('teacherArea').style.display = 'block';
+  const loginArea = document.getElementById('loginArea');
+  const studentArea = document.getElementById('studentArea');
+  const teacherArea = document.getElementById('teacherArea');
+  if (!loginArea || !studentArea || !teacherArea) {
+    console.warn('Some UI sections are missing; cannot show teacher area.');
+    return;
+  }
+  loginArea.style.display = 'none';
+  studentArea.style.display = 'none';
+  teacherArea.style.display = 'block';
   renderTeacherTable();
 }
 
