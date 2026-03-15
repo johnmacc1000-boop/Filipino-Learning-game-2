@@ -3,10 +3,46 @@ const words = ['mahal', 'ganda', 'talo', 'araw', 'gabi'];
 const MAX_SCORE = 100;
 const TEACHER_PASSWORD = 'teacher123';
 const STUDENT_LIST_KEY = 'filipino_student_list';
+
+const assessmentQuestions = [
+  {
+    question: "Tuwing Sabado, nagluluto si Mang Juan ng adobo sa kanilang kusina. Nakikita ng mga bata ang kanyang kasipagan at natututo silang tumulong.",
+    options: {
+      A: "Sinigang",
+      B: "Adobo",
+      C: "Tinola",
+      D: "Kare-kare"
+    },
+    correct: "B"
+  },
+  {
+    question: "Tuwing Sabado, nagluluto si Mang Juan ng adobo sa kanilang kusina. Nakikita ng mga bata ang kanyang kasipagan at natututo silang tumulong.",
+    options: {
+      A: "Biyernes",
+      B: "Sabado",
+      C: "Linggo",
+      D: "Huwebes"
+    },
+    correct: "B"
+  },
+  {
+    question: "Tuwing Sabado, nagluluto si Mang Juan ng adobo sa kanilang kusina. Nakikita ng mga bata ang kanyang kasipagan at natututo silang tumulong.",
+    options: {
+      A: "Mga bata",
+      B: "Mga guro",
+      C: "Mga kapitbahay",
+      D: "Mga magulang"
+    },
+    correct: "A"
+  }
+];
+
 let idx = 0;
 let score = 0;
 let badges = new Set();
 let currentStudent = null;
+let currentQuestionIndex = 0;
+let assessmentScore = 0;
 
 function sanitizeId(name) {
   return name.trim().toLowerCase().replace(/[^a-z0-9]/g, '_');
@@ -162,12 +198,14 @@ function showLogin() {
 function showStudentHome() {
   const home = document.getElementById('studentHome');
   const practice = document.getElementById('studentPractice');
-  if (!home || !practice) {
-    console.warn('Student home or practice view missing.');
+  const assessment = document.getElementById('studentAssessment');
+  if (!home || !practice || !assessment) {
+    console.warn('Student home, practice, or assessment view missing.');
     return;
   }
   home.style.display = 'block';
   practice.style.display = 'none';
+  assessment.style.display = 'none';
   const result = document.getElementById('result');
   if (result) result.innerText = 'Press "Mic record" to start practicing.';
 }
@@ -175,28 +213,81 @@ function showStudentHome() {
 function showStudentPractice() {
   const home = document.getElementById('studentHome');
   const practice = document.getElementById('studentPractice');
-  if (!home || !practice) {
-    console.warn('Student home or practice view missing.');
+  const assessment = document.getElementById('studentAssessment');
+  if (!home || !practice || !assessment) {
+    console.warn('Student home, practice, or assessment view missing.');
     return;
   }
   home.style.display = 'none';
   practice.style.display = 'block';
+  assessment.style.display = 'none';
   showWord();
   updateStatus();
 }
 
-function showStudentArea() {
-  const loginArea = document.getElementById('loginArea');
-  const studentArea = document.getElementById('studentArea');
-  const teacherArea = document.getElementById('teacherArea');
-  if (!loginArea || !studentArea || !teacherArea) {
-    console.warn('Some UI sections are missing; cannot show student area.');
+function showStudentAssessment() {
+  const home = document.getElementById('studentHome');
+  const assessment = document.getElementById('studentAssessment');
+  if (!home || !assessment) {
+    console.warn('Student home or assessment view missing.');
     return;
   }
-  loginArea.style.display = 'none';
-  studentArea.style.display = 'block';
-  teacherArea.style.display = 'none';
-  showStudentHome();
+  home.style.display = 'none';
+  assessment.style.display = 'block';
+  currentQuestionIndex = 0;
+  assessmentScore = 0;
+  document.getElementById('questionContainer').style.display = 'block';
+  document.getElementById('submitAnswerBtn').style.display = 'inline-block';
+  showQuestion();
+}
+
+function showQuestion() {
+  const q = assessmentQuestions[currentQuestionIndex];
+  document.getElementById('questionText').innerText = q.question;
+  document.getElementById('optionA').innerText = q.options.A;
+  document.getElementById('optionB').innerText = q.options.B;
+  document.getElementById('optionC').innerText = q.options.C;
+  document.getElementById('optionD').innerText = q.options.D;
+  document.getElementById('assessmentResult').innerText = '';
+  document.getElementById('nextQuestionBtn').style.display = 'none';
+  // Clear radio selection
+  const radios = document.querySelectorAll('input[name="option"]');
+  radios.forEach(r => r.checked = false);
+}
+
+function checkAnswer() {
+  const selected = document.querySelector('input[name="option"]:checked');
+  if (!selected) {
+    alert('Please select an answer.');
+    return;
+  }
+  const answer = selected.value;
+  const correct = assessmentQuestions[currentQuestionIndex].correct;
+  if (answer === correct) {
+    assessmentScore += 10;
+    document.getElementById('assessmentResult').innerText = 'Correct!';
+  } else {
+    document.getElementById('assessmentResult').innerText = 'Incorrect. The correct answer is ' + correct + '.';
+  }
+  document.getElementById('nextQuestionBtn').style.display = 'inline-block';
+  document.getElementById('submitAnswerBtn').style.display = 'none';
+}
+
+function nextQuestion() {
+  currentQuestionIndex++;
+  if (currentQuestionIndex < assessmentQuestions.length) {
+    showQuestion();
+    document.getElementById('submitAnswerBtn').style.display = 'inline-block';
+  } else {
+    // End of quiz
+    document.getElementById('questionContainer').style.display = 'none';
+    document.getElementById('assessmentResult').innerText = `Assessment complete! Your score: ${assessmentScore} / ${assessmentQuestions.length * 10}`;
+    // Add to main score
+    score = Math.min(MAX_SCORE, score + assessmentScore);
+    updateStatus();
+    saveStudentProgress();
+    document.getElementById('nextQuestionBtn').style.display = 'none';
+  }
 }
 
 function showTeacherArea() {
@@ -365,6 +456,22 @@ window.addEventListener('DOMContentLoaded', () => {
   });
 
   document.getElementById('backToCoursesBtn').addEventListener('click', () => {
+    showStudentHome();
+  });
+
+  document.getElementById('goToAssessmentBtn').addEventListener('click', () => {
+    if (!currentStudent) {
+      alert('Please log in first as a student.');
+      return;
+    }
+    showStudentAssessment();
+  });
+
+  document.getElementById('submitAnswerBtn').addEventListener('click', checkAnswer);
+
+  document.getElementById('nextQuestionBtn').addEventListener('click', nextQuestion);
+
+  document.getElementById('backToCoursesFromAssessmentBtn').addEventListener('click', () => {
     showStudentHome();
   });
 

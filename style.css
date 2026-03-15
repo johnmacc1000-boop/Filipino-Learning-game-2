@@ -114,12 +114,29 @@ button.secondary {
   color: var(--text);
 }
 
-button.secondary:hover {
-  background: rgba(255, 255, 255, 0.12);
+.course-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 }
 
-.section-hidden {
-  display: none !important;
+.course-card {
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 1rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.course-card h3 {
+  margin: 0 0 0.5rem 0;
+  font-size: 1.1rem;
+}
+
+.course-card p {
+  margin: 0 0 1rem 0;
+  color: var(--muted);
+  font-size: 0.9rem;
 }
 
 #result {

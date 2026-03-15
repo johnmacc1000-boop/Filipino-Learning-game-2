@@ -46,6 +46,11 @@
           <p>Practice common Filipino words with speech recognition.</p>
           <button id="goToPracticeBtn">Mic record</button>
         </div>
+        <div class="course-card">
+          <h3>Panimulang Pagtataya</h3>
+          <p>Answer multiple-choice questions to assess your understanding.</p>
+          <button id="goToAssessmentBtn">Start Assessment</button>
+        </div>
       </div>
     </div>
 
@@ -69,6 +74,25 @@
 
       <div style="margin-top: 1rem; display: flex; gap: 0.5rem; flex-wrap: wrap;">
         <button id="backToCoursesBtn" class="secondary">Back to courses</button>
+      </div>
+    </div>
+
+    <div id="studentAssessment" style="display: none;">
+      <h3 id="assessmentTitle">Panimulang Pagtataya</h3>
+      <div id="questionContainer">
+        <p id="questionText"></p>
+        <div id="optionsContainer">
+          <label><input type="radio" name="option" value="A"> <span id="optionA"></span></label><br>
+          <label><input type="radio" name="option" value="B"> <span id="optionB"></span></label><br>
+          <label><input type="radio" name="option" value="C"> <span id="optionC"></span></label><br>
+          <label><input type="radio" name="option" value="D"> <span id="optionD"></span></label><br>
+        </div>
+      </div>
+      <button id="submitAnswerBtn">Submit Answer</button>
+      <div id="assessmentResult" style="margin-top: 1rem;"></div>
+      <div style="margin-top: 1rem; display: flex; gap: 0.5rem; flex-wrap: wrap;">
+        <button id="nextQuestionBtn" style="display: none;">Next Question</button>
+        <button id="backToCoursesFromAssessmentBtn" class="secondary">Back to courses</button>
       </div>
     </div>
     <div style="margin-top: 1rem;">
