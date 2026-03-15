@@ -11,7 +11,7 @@
   <main id="loginArea">
     <div class="card login-grid">
       <div>
-        <h2>Student Login</h2>
+        <h2>Mag-aaral</h2>
         <p>
           <label for="studentNameInput" class="sr-only">Student name</label>
           <input id="studentNameInput" placeholder="Type your name" />
@@ -22,7 +22,7 @@
       </div>
 
       <div>
-        <h2>Teacher Login</h2>
+        <h2>Guro</h2>
         <p>
           <label for="teacherPasswordInput" class="sr-only">Teacher password</label>
           <input id="teacherPasswordInput" type="password" placeholder="teacher123" />
@@ -48,6 +48,10 @@
 
     <div id="result" style="margin-top: 1rem;">Press button and speak.</div>
     <div id="score">Score: 0</div>
+    <div class="progress" aria-label="Score progress">
+      <div class="progress__fill" id="progressFill"></div>
+      <div class="progress__text" id="progressText">0 / 100</div>
+    </div>
     <div id="badges">Badges: None</div>
 
     <button id="logoutBtn">Logout</button>

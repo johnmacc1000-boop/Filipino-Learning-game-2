@@ -1,5 +1,6 @@
 console.log('script.js loaded');
 const words = ['mahal', 'ganda', 'talo', 'araw', 'gabi'];
+const MAX_SCORE = 100;
 const TEACHER_PASSWORD = 'teacher123';
 const STUDENT_LIST_KEY = 'filipino_student_list';
 let idx = 0;
@@ -77,6 +78,15 @@ function updateStatus() {
   document.getElementById('score').innerText = 'Score: ' + score;
   document.getElementById('badges').innerText =
     'Badges: ' + (badges.size ? [...badges].join(', ') : 'None');
+
+  // Update progress bar
+  const fill = document.getElementById('progressFill');
+  const text = document.getElementById('progressText');
+  if (fill && text) {
+    const percentage = Math.min(100, Math.round((score / MAX_SCORE) * 100));
+    fill.style.width = percentage + '%';
+    text.innerText = `${score} / ${MAX_SCORE}`;
+  }
 }
 
 function checkBadges() {
@@ -116,7 +126,7 @@ function startSpeech() {
     const word = document.getElementById('word').innerText.trim().toLowerCase();
 
     if (spoken === word) {
-      score += 10;
+      score = Math.min(MAX_SCORE, score + 10);
       resultBox.innerText = 'Correct! +' + 10 + ' points';
       checkBadges();
       saveStudentProgress();
