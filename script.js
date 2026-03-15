@@ -2,6 +2,8 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebas
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-auth.js";
 import { getFirestore, doc, setDoc, getDoc, collection, getDocs } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
 
+console.log('Script starting...');
+
 const firebaseConfig = {
   apiKey: "AIzaSyAjgDNIb7Jkm5jbxS6lHdNBS_3qb9nHQWc",
   authDomain: "filipino-learning-game.firebaseapp.com",
@@ -267,3 +269,5 @@ document.getElementById('startBtn').addEventListener('click', () => {
   }
   startSpeech();
 });
+
+showLogin();
