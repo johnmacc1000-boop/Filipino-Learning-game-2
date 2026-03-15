@@ -1,3 +1,4 @@
+console.log('script.js loaded');
 const words = ['mahal', 'ganda', 'talo', 'araw', 'gabi'];
 const TEACHER_PASSWORD = 'teacher123';
 const STUDENT_LIST_KEY = 'filipino_student_list';
@@ -260,6 +261,15 @@ function exportCsv() {
 // Event wiring
 window.addEventListener('DOMContentLoaded', () => {
   console.log('DOM loaded, wiring buttons');
+  console.log('Available elements:', {
+    studentLoginBtn: document.getElementById('studentLoginBtn'),
+    teacherLoginBtn: document.getElementById('teacherLoginBtn'),
+    startBtn: document.getElementById('startBtn'),
+    resetBtn: document.getElementById('resetBtn'),
+    exportBtn: document.getElementById('exportBtn'),
+    logoutBtn: document.getElementById('logoutBtn'),
+    adminLogoutBtn: document.getElementById('adminLogoutBtn'),
+  });
 
   document.getElementById('studentLoginBtn').addEventListener('click', () => {
     const name = document.getElementById('studentNameInput').value.trim();
