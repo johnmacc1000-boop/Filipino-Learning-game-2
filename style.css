@@ -127,6 +127,16 @@ button.secondary {
   color: var(--text);
 }
 
+#studentInfo {
+  text-align: center;
+  margin-bottom: 1rem;
+  font-size: 1rem;
+}
+
+#studentInfo p {
+  margin: 0.25rem 0;
+}
+
 .course-card {
   background: var(--surface-2);
   border: 1px solid var(--border);

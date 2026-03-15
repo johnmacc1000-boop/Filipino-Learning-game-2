@@ -12,7 +12,15 @@
         <h2>Mag-aaral</h2>
         <p>
           <label for="studentNameInput" class="sr-only">Student name</label>
-          <input id="studentNameInput" placeholder="Type your name" />
+          <input id="studentNameInput" placeholder="Type your name" required />
+        </p>
+        <p>
+          <label for="studentRefInput" class="sr-only">Reference Number</label>
+          <input id="studentRefInput" placeholder="Reference Number" required />
+        </p>
+        <p>
+          <label for="studentSectionInput" class="sr-only">Section and Grade Level</label>
+          <input id="studentSectionInput" placeholder="Section and Grade Level" required />
         </p>
         <p>
           <button id="studentLoginBtn">Start as Student</button>
@@ -38,6 +46,11 @@
 
     <div id="studentHome">
       <h1>TEKNO-BASA</h1>
+      <div id="studentInfo">
+        <p><strong>Name:</strong> <span id="displayName"></span></p>
+        <p><strong>Reference Number:</strong> <span id="displayRef"></span></p>
+        <p><strong>Section and Grade Level:</strong> <span id="displaySection"></span></p>
+      </div>
       <p>Choose your course to start practicing.</p>
       <div class="course-list">
         <div class="course-card">

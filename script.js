@@ -76,6 +76,8 @@ function saveStudentProgress() {
     score,
     badges: [...badges],
     assessmentScores,
+    ref: document.getElementById('displayRef').innerText,
+    section: document.getElementById('displaySection').innerText,
     updated: new Date().toISOString(),
   };
   localStorage.setItem(getStudentKey(id), JSON.stringify(payload));
@@ -103,9 +105,18 @@ function loadStudentProgress(name) {
       score = data.score ?? 0;
       badges = new Set(data.badges ?? []);
       assessmentScores = data.assessmentScores ?? { level1: 0, level2: 0, level3: 0 };
+      // Load additional info
+      document.getElementById('displayName').innerText = data.name || name;
+      document.getElementById('displayRef').innerText = data.ref || '';
+      document.getElementById('displaySection').innerText = data.section || '';
     } catch (e) {
       console.error('Could not parse student data', e);
     }
+  } else {
+    // If no data, set defaults
+    document.getElementById('displayName').innerText = name;
+    document.getElementById('displayRef').innerText = '';
+    document.getElementById('displaySection').innerText = '';
   }
   document.getElementById('studentTitle').innerText = `Student: ${currentStudent}`;
   updateStatus();
@@ -462,11 +473,17 @@ window.addEventListener('DOMContentLoaded', () => {
 
   document.getElementById('studentLoginBtn').addEventListener('click', () => {
     const name = document.getElementById('studentNameInput').value.trim();
-    if (!name) {
-      alert('Please type your student name.');
+    const ref = document.getElementById('studentRefInput').value.trim();
+    const section = document.getElementById('studentSectionInput').value.trim();
+    if (!name || !ref || !section) {
+      alert('Please fill in all fields: Name, Reference Number, and Section and Grade Level.');
       return;
     }
     loadStudentProgress(name);
+    // Override with current input values
+    document.getElementById('displayRef').innerText = ref;
+    document.getElementById('displaySection').innerText = section;
+    saveStudentProgress(); // Save immediately with new info
     showStudentArea();
   });
 
