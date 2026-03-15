@@ -4,11 +4,6 @@
   <meta charset="UTF-8" />
   <title>Filipino Learning Game</title>
   <link rel="stylesheet" href="style.css" />
-  <script type="module">
-   import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
-   import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-auth.js";
-   import { getFirestore, doc, setDoc, getDoc, collection, getDocs } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
-  </script>
 </head>
 <body>
   <h1>Filipino Reading Game</h1>
@@ -16,18 +11,17 @@
   <section id="loginArea">
     <h2>Login / Register</h2>
     <p>
-      Student email: <input id="studentEmailInput" placeholder="student@school.com" />
-      Password: <input id="studentPasswordInput" type="password" />
-      <button id="studentLoginBtn">Login/Register as Student</button>
+      Student name: <input id="studentNameInput" placeholder="Type your name" />
+      <button id="studentLoginBtn">Start as Student</button>
     </p>
     <p>
       <hr />
     </p>
     <p>
-      Teacher login (password: teacher123)
+      Teacher password: <input id="teacherPasswordInput" type="password" placeholder="teacher123" />
       <button id="teacherLoginBtn">Teacher Login</button>
     </p>
-    <div id="loginHint">Teacher email is teacher@school.com (demo).</div>
+    <div id="loginHint">Teacher password is teacher123 (demo).</div>
   </section>
 
   <section id="studentArea" style="display: none;">
@@ -39,6 +33,7 @@
 
     <button id="startBtn">Start Speech Check</button>
     <button id="resetBtn">Reset Progress</button>
+    <button id="exportBtn">Export My Progress</button>
 
     <div id="result" style="margin-top: 1rem;">Press button and speak.</div>
     <div id="score">Score: 0</div>
@@ -57,6 +52,6 @@
     <table id="studentTable" border="1" style="width: 100%; margin-top: 1rem; border-collapse: collapse;"></table>
   </section>
 
-  <script type="module" src="script.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
